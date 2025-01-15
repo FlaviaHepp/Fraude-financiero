@@ -1,50 +1,3 @@
-"""
-Descripción del conjunto de datos sobre transacciones fraudulentas
-Este conjunto de datos proporciona información completa sobre transacciones, con especial atención a la identificación de actividades fraudulentas. 
-Con más de 6 millones de entradas, ofrece una colección rica y diversa de datos transaccionales para análisis y modelado.
-
-Columnas:
-
-paso : representa una unidad de tiempo en el proceso de transacción, aunque la unidad de tiempo específica no se especifica en el conjunto de datos. 
-Podría denotar horas, días u otra unidad, según el contexto.
-tipo : Describe el tipo de transacción, como transferencia, pago, etc. Esta variable categórica permite clasificar diferentes comportamientos de 
-transacción.
-Monto : Indica el valor monetario de la transacción, proporcionando información sobre la magnitud financiera de cada transacción.
-nameOrig : sirve como identificador de la cuenta o entidad de origen que inicia la transacción. Esto ayuda a rastrear el origen de los fondos en 
-cada transacción.
-oldbalanceOrg : Representa el saldo en la cuenta de origen antes de que ocurriera la transacción, ofreciendo un punto de referencia para comprender 
-los cambios en los saldos de las cuentas.
-newbalanceOrig : refleja el saldo en la cuenta de origen después de que se haya procesado la transacción, proporcionando información sobre cómo la 
-transacción afecta el saldo de la cuenta.
-nameDest : Funciona como identificador de la cuenta o entidad de destino que recibe los fondos en cada transacción. Ayuda a rastrear a dónde se 
-transfiere el dinero.
-oldbalanceDest : Indica el saldo en la cuenta de destino antes de la transacción, ofreciendo una línea de base para evaluar los cambios en los 
-saldos de las cuentas debido a los fondos entrantes.
-newbalanceDest : representa el saldo en la cuenta de destino después de que se haya completado la transacción, lo que proporciona información sobre 
-el impacto de los fondos entrantes en el saldo de la cuenta.
-isFraud : indicador binario (0 o 1) que indica si la transacción es fraudulenta (1) o legítima (0). Esta es la variable objetivo para el modelado de 
-detección de fraude.
-isFlaggedFraud : otro indicador binario (0 o 1) que puede indicar si una transacción ha sido marcada como potencialmente fraudulenta. Esto podría 
-servir como una característica adicional para los algoritmos de detección de fraude.
-Uso:
-Este conjunto de datos es particularmente valioso para desarrollar y evaluar algoritmos y modelos de detección de fraude. Al analizar patrones y 
-anomalías dentro de los datos de las transacciones, los investigadores y analistas pueden identificar características asociadas con actividades 
-fraudulentas y construir modelos predictivos para detectar automáticamente dichas transacciones en tiempo real.
-
-Aplicaciones potenciales:
-
-Detección de fraude: utilización de algoritmos de aprendizaje automático para identificar automáticamente transacciones fraudulentas en función de 
-patrones históricos y características de comportamiento.
-Gestión de riesgos: evaluar y mitigar los riesgos asociados con actividades fraudulentas, protegiendo así a las instituciones financieras y a sus 
-clientes.
-Cumplimiento Normativo: Garantizar el cumplimiento de las regulaciones y estándares antifraude mediante la implementación de mecanismos efectivos 
-de detección de fraude.
-Protección del cliente: proteger a los clientes de pérdidas financieras detectando y previniendo de forma proactiva transacciones fraudulentas.
-Conclusión:
-El conjunto de datos sobre transacciones fraudulentas constituye un recurso valioso para comprender y abordar los desafíos que plantean las 
-actividades fraudulentas en las transacciones financieras. Al aprovechar las técnicas avanzadas de análisis y aprendizaje automático, las 
-organizaciones pueden mejorar su capacidad para detectar y prevenir transacciones fraudulentas, promoviendo así la confianza, la seguridad y la 
-integridad dentro del ecosistema financiero."""
 
 #Cargar bibliotecas
 import pandas as pd
@@ -357,35 +310,34 @@ plt.show()
 
 """
 #Paso:
-
 #Correlación positiva débil con newbalanceDest (0,027665) e isFraud (0,031578).
 #Correlación negativa débil con oldbalanceOrg (-0.010058), newbalanceOrig (-0.010299) y oldbalanceDest (0.027665).
-#Cantidad:
 
+#Cantidad:
 Correlación positiva moderada con oldbalanceDest (0,294137) y newbalanceDest (0,459304).
 Correlación positiva débil con isFraud (0,076688).
-Antigua organización del equilibrio:
 
+Antigua organización del equilibrio:
 Correlación negativa muy débil con oldbalanceDest (0,066243) y newbalanceDest (0,042029).
 Correlación positiva muy débil con isFraud (0,010154).
-Origen de Newbalance:
 
+Origen de Newbalance:
 Correlación negativa muy débil con oldbalanceDest (0,067812) y newbalanceDest (0,041837).
 Correlación negativa muy débil con isFraud (-0,008148).
-Antiguo equilibrioDest:
 
+Antiguo equilibrioDest:
 Fuerte correlación positiva con newbalanceDest (0,976569).
 Correlación positiva muy débil con isFlaggedFraud (-0,000513).
-Nuevo equilibrioDest:
 
+Nuevo equilibrioDest:
 Fuerte correlación positiva con oldbalanceDest (0,976569).
 Correlación negativa muy débil con isFlaggedFraud (-0,000529).
-Es fraude:
 
+Es fraude:
 Débil correlación positiva con cantidad (0,076688) y newbalanceOrig (-0,008148).
 Correlación positiva muy débil con otras variables.
-Está marcado como fraude:
 
+Está marcado como fraude:
 Correlación positiva débil con la cantidad (0,012295).
 Correlación positiva muy débil con otras variables."""
 
@@ -677,7 +629,7 @@ for i, (label, model) in enumerate(models.items()):
     fpr, tpr, thresholds = roc_curve(y_test, y_pred_prob)
     roc_auc = auc(fpr, tpr)
     
-    # Trazar las curvas ROC AUC con distintos colores
+# Trazar las curvas ROC AUC con distintos colores
     plt.plot(fpr, tpr, lw=2, label=f'{label} (AUC = {roc_auc:.2f})', color=colors[i])
 plt.plot([0, 1], [0, 1], 'k--', lw=2)
 plt.xlim([0.0, 1.0])
@@ -687,34 +639,6 @@ plt.ylabel('Tasa de verdaderos positivos\n', fontsize=12, fontweight='bold')
 plt.title('Curvas ROC para todos los modelos de aprendizaje automático\n', fontsize=16, fontweight='bold')
 plt.legend(loc="lower right", fontsize=12)
 plt.show()
-
-"""AUC es una métrica común utilizada para evaluar el rendimiento de los modelos de clasificación binaria, que se utilizan para predecir uno de 
-dos resultados posibles.
-
-1. K-Vecinos más cercanos (KNN) (AUC = 0,89):
-K-Nearest Neighbors es un algoritmo de aprendizaje automático simple e intuitivo que se utiliza para tareas de clasificación y regresión. Opera 
-según el principio de que los puntos de datos similares están cerca entre sí en el espacio de características.
-Una puntuación AUC de 0,89 sugiere que este modelo KNN logró un buen nivel de discriminación, aunque no perfecto, al distinguir entre las dos 
-clases que predice. 
-Cuanto más se acerque la puntuación AUC a 1,0, mejor será el rendimiento del modelo.
-2. Árbol de decisión (AUC = 0,93):
-Un árbol de decisión es una estructura similar a un árbol que se utiliza para tomar decisiones basadas en un conjunto de condiciones. Es un 
-modelo popular tanto para tareas de clasificación como de regresión.
-Una puntuación AUC de 0,93 indica que el modelo de árbol de decisión tiene una gran capacidad para diferenciar entre las clases que predice. 
-Está funcionando bastante bien en este contexto.
-3. Regresión logística (AUC = 0,96):
-La regresión logística es un modelo estadístico utilizado para la clasificación binaria. Modela la probabilidad de un resultado binario.
-Una puntuación AUC de 0,96 es bastante alta, lo que indica que el modelo de regresión logística es muy eficaz para clasificar datos. Es 
-excelente para distinguir entre las dos clases.
-4. Bosque aleatorio (AUC = 1,00):
-Random Forest es un método de aprendizaje conjunto que combina múltiples árboles de decisión para mejorar la precisión predictiva y reducir 
-el sobreajuste.
-Una puntuación AUC de 1,00 significa que el modelo Random Forest ha logrado una discriminación perfecta. Puede distinguir perfectamente entre 
-las dos clases en el conjunto de datos, lo que indica un rendimiento extremadamente sólido.
-En resumen, las puntuaciones AUC reflejan el rendimiento de clasificación de estos modelos. Una puntuación AUC más alta generalmente implica 
-un mejor rendimiento del modelo en términos de distinción entre las dos clases, y Random Forest, con un AUC de 1,00, destaca por haber logrado una discriminación 
-perfecta en este contexto.
-"""
 
 print(data.isnull().sum())
 
